@@ -1,4 +1,5 @@
 import { INCREASE, DECREASE, CLEAR_CART, REMOVE, GET_TOTAL } from "./action";
+import CartItem from "./components/CartItem";
 
 // reducer
 function reducer(state, action) {
@@ -10,13 +11,20 @@ function reducer(state, action) {
     console.log(action.payload.id);
     return {
       ...state,
-      cart: state.cart.filter(
-        (cartItems) => cartItems.id !== action.payload.id
-      ),
+      cart: state.cart.filter((cartItem) => cartItem.id !== action.payload.id),
     };
   }
   if (action.type === INCREASE) {
-    console.log(INCREASE);
+    let tempCart = state.cart.map((cartItem) => {
+      if (cartItem.id === action.payload.id) {
+        cartItem = { ...cartItem, amount: cartItem.amount + 1 };
+      }
+      return cartItem;
+    });
+    return {
+      ...state,
+      cart: tempCart,
+    };
   }
   if (action.type === DECREASE) {
     console.log(DECREASE);
