@@ -1,5 +1,4 @@
 import { INCREASE, DECREASE, CLEAR_CART, REMOVE, GET_TOTAL } from "./action";
-import cartItems from "./cart-items";
 
 // reducer
 function reducer(state, action) {
