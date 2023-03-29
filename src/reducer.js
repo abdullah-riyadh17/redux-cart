@@ -1,5 +1,4 @@
 import { INCREASE, DECREASE, CLEAR_CART, REMOVE, GET_TOTAL } from "./action";
-import CartItem from "./components/CartItem";
 
 // reducer
 function reducer(state, action) {
@@ -27,8 +26,26 @@ function reducer(state, action) {
     };
   }
   if (action.type === DECREASE) {
-    console.log(DECREASE);
+    let tempCart = [];
+    if (action.payload.amount === 1) {
+      tempCart = state.cart.filter(
+        (cartItem) => (cartItem = cartItem.id !== action.payload.id)
+      );
+    } else {
+      tempCart = state.cart.map((cartItem) => {
+        if (cartItem.id === action.payload.id) {
+          cartItem = { ...cartItem, amount: cartItem.amount - 1 };
+        }
+        return cartItem;
+      });
+    }
+    console.log(tempCart);
+    return {
+      ...state,
+      cart: tempCart,
+    };
   }
+
   if (action.type === GET_TOTAL) {
     console.log(GET_TOTAL);
   }
@@ -52,4 +69,24 @@ export default reducer;
 
   default:
     return state;
+} */
+
+/* if (action.type === DECREASE) {
+  let tempCart = [];
+  if (action.payload.amount === 1) {
+    tempCart = state.cart.filter(
+      (cartItem) => cartItem.id !== action.payload.id
+    );
+  } else {
+    tempCart = state.cart.map((cartItem) => {
+      if (cartItem.id === action.payload.id) {
+        cartItem = { ...cartItem, amount: cartItem.amount - 1 };
+      }
+      return cartItem;
+    });
+  }
+  return {
+    ...state,
+    cartItem: tempCart,
+  };
 } */
